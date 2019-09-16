@@ -1,0 +1,60 @@
+
+<button type="button" class="btn btn-danger btn-lg pull-right">{{time}}</button>
+<h4>Super savings account apply online</h4>
+<div class="formstyle">
+
+  <form (ngSubmit)="onsubmit(formdata)" #formdata = "ngForm"  >
+    <fieldset [disabled]="disabledValue">
+
+    <div class="form-group" [class.has-error]="namecontrol.touched && namecontrol.invalid">
+      <label for="name" class="control-label">Name</label>
+      <input type="text" class="form-control" id="name" name="name" minlength="4" ngModel #namecontrol = "ngModel" pattern="^[A-Za-z]+$" required>
+      <p *ngIf="namecontrol.touched && namecontrol.errors?.required">Please enter name</p>
+      <p *ngIf="namecontrol.touched && namecontrol.errors?.minlength && !namecontrol.errors?.required">Please enter atleast 4 charcters</p>
+      <p *ngIf="namecontrol.touched && namecontrol.errors?.pattern && !namecontrol.errors?.required">Please enter letters</p>
+
+    </div>
+    <div class="form-group" [class.has-error]="emailcontrol.touched && emailcontrol.invalid">
+      <label for="email" class="control-label">Email</label>
+      <input type="email" class="form-control" id="email"  name="email"ngModel #emailcontrol = "ngModel" required  appEmailvalidation >
+      <p *ngIf = "emailcontrol.touched && emailcontrol.errors?.required  ">Plese enter email</p>
+      <p *ngIf = "emailcontrol.touched && emailcontrol.errors?.notgood && !emailcontrol.errors?.required">Plese enter valid  email</p>
+
+    </div>
+    <div class="form-group"  [class.has-error]="mobilecontrol.touched && mobilecontrol.invalid">
+      <label for="mobile"  class="control-label">Mobile Number</label>
+      <input type="tel" class="form-control" id="mobile" name="mobile" ngModel #mobilecontrol = "ngModel" required pattern="(0/91)?[7-9][0-9]{9}">
+      <p *ngIf = "mobilecontrol.touched && mobilecontrol.errors?.required">Plese enter Mobile number</p>
+      <p *ngIf = "mobilecontrol.touched && mobilecontrol.errors?.pattern">Plese enter 10 digit mobile number</p>
+    </div>
+    <div class="form-group"  [class.has-error]="statecontrol.touched && statecontrol.invalid">
+      <label for="selectstate">Select State</label>
+      <select class="form-control" id="selectstate" name="state" ngModel #statecontrol = ngModel required  (change)="changestate($event.target.value)">
+
+        <option *ngFor = "let state of statelist" [value]="state.name">{{state.name}}</option>
+
+      </select>
+      <p *ngIf = "statecontrol.touched && statecontrol.errors?.required">Plese enter state</p>
+    </div>
+    <div class="form-group"  [class.has-error]="citycontrol.touched && citycontrol.invalid">
+      <label for="selectcity" >Select  City</label>
+      <select class="form-control" id="selectcity" name="city" ngModel #citycontrol= ngModel required   >
+        <option *ngFor = "let city of cities" [value]="city">{{city}}</option>
+
+
+      </select>
+      <p *ngIf = "citycontrol.touched && citycontrol.errors?.required">Plese enter city</p>
+    </div>
+
+
+
+
+    <button type="submit" class="btn btn-default" [disabled]="!formdata.valid" >Submit</button>
+    </fieldset>
+
+  </form>
+
+</div>
+
+
+
